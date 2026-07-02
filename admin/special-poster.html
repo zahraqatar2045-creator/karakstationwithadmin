@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Poster Admin</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(150deg, #111827 0%, #1f2937 45%, #111827 100%);
+            color: #f8fafc;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 18px 60px;
+        }
+        .admin-card {
+            background: rgba(15, 23, 42, 0.94);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 28px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.4);
+        }
+        .admin-card h2 {
+            margin-top: 0;
+            color: #e2e8f0;
+            letter-spacing: 0.01em;
+        }
+        .auth-card {
+            max-width: 700px;
+            margin: 0 auto 32px;
+            padding: 40px;
+            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 32px;
+            box-shadow: 0 25px 80px rgba(15, 23, 42, 0.45);
+        }
+        .auth-card h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        .auth-card p {
+            color: #cbd5e1;
+            margin-bottom: 28px;
+        }
+        .admin-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: center;
+            padding: 30px 32px;
+            background: rgba(15, 23, 42, 0.98);
+            border-radius: 28px;
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            margin-bottom: 24px;
+        }
+        .admin-header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #fff;
+        }
+        .admin-header p {
+            margin: 8px 0 0;
+            color: #94a3b8;
+            max-width: 600px;
+        }
+        .form-label {
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+        .form-control,
+        .form-select {
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            color: #e2e8f0;
+            box-shadow: inset 0 2px 12px rgba(15, 23, 42, 0.4);
+        }
+        .form-control::placeholder {
+            color: #94a3b8;
+        }
+        .btn-primary,
+        .btn-success {
+            background: #ef4444;
+            border-color: transparent;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+        .btn-primary:hover,
+        .btn-success:hover,
+        .btn-primary:focus,
+        .btn-success:focus {
+            background: #f87171;
+            transform: translateY(-1px);
+            box-shadow: 0 18px 28px rgba(248, 113, 113, 0.22);
+        }
+        .btn-outline-primary,
+        .btn-outline-danger {
+            border-color: rgba(239, 68, 68, 0.35);
+            color: #f87171;
+            background: transparent;
+        }
+        .btn-outline-primary:hover,
+        .btn-outline-danger:hover,
+        .btn-outline-primary:focus,
+        .btn-outline-danger:focus {
+            background: rgba(248, 113, 113, 0.12);
+            color: #fda4af;
+        }
+        .btn-small {
+            padding: 12px 20px;
+            font-size: 14px;
+            border-radius: 14px;
+        }
+        .poster-food-list {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .poster-food-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            border-radius: 22px;
+            padding: 20px;
+            display: grid;
+            gap: 12px;
+        }
+        .poster-food-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        .poster-food-card strong {
+            color: #fff;
+            font-size: 18px;
+        }
+        .poster-food-card p {
+            color: #cbd5e1;
+            margin: 0;
+        }
+        .poster-food-card .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .poster-food-card .meta span {
+            background: rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 8px 12px;
+            color: #e2e8f0;
+            font-size: 13px;
+        }
+        .poster-food-card .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .poster-food-card .actions button {
+            flex: 1;
+        }
+        .text-muted {
+            color: #94a3b8 !important;
+        }
+
+        @media (max-width: 1400px) {
+            .poster-food-list {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .poster-food-list {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 800px) {
+            .poster-food-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 560px) {
+            .poster-food-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        .list-group-item {
+            background: transparent;
+            border: none;
+            padding: 18px 0;
+        }
+        .list-group-item + .list-group-item {
+            border-top: 1px solid rgba(148, 163, 184, 0.14);
+        }
+        .dropdown .form-select {
+            min-width: 180px;
+        }
+        @media (max-width: 991px) {
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .poster-food-list {
+                grid-template-columns: 1fr;
+            }
+            .dropdown .form-select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section id="auth-screen" class="admin-card auth-card">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <div>
+                    <h2 id="auth-title">Admin Login</h2>
+                    <p id="auth-message">Sign in to manage home page special foods.</p>
+                </div>
+                <div>
+                    <span class="badge">Secure login</span>
+                </div>
+            </div>
+            <form id="auth-form" class="row g-3">
+                <div class="col-md-6">
+                    <label for="auth-username" class="form-label">Username</label>
+                    <input id="auth-username" class="form-control" type="text" placeholder="Enter username" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="auth-password" class="form-label">Password</label>
+                    <input id="auth-password" class="form-control" type="password" placeholder="Enter password" required>
+                </div>
+                <div class="col-12 d-flex flex-wrap gap-2">
+                    <button type="submit" id="auth-submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </section>
+
+        <div id="admin-panel" class="d-none">
+            <header class="admin-header">
+                <div>
+                    <h1>Special Poster</h1>
+                    <p>Manage the featured home page foods with the same admin style and controls.</p>
+                </div>
+                <div class="d-flex flex-wrap gap-3 align-items-center">
+                    <span id="current-user-badge" class="badge">Not signed in</span>
+                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <a href="javascript:void(0)" id="back-to-admin" class="btn btn-outline-primary btn-small">Back to Admin</a>
+                        <div class="dropdown">
+                            <select id="admin-options" class="form-select form-select-sm">
+                                <option value="admin-home">Back to Admin</option>
+                                <option value="home">Back to Home</option>
+                                <option value="menu">View Menu</option>
+                                <option value="logout">Logout</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="admin-card">
+                <h2>Add / Edit Home Page Food</h2>
+                <p class="text-muted">Create or modify up to 10 special poster foods that display on the home page.</p>
+                <form id="poster-food-form" class="row g-3">
+                    <input type="hidden" id="poster-food-id">
+                    <div class="col-md-6">
+                        <label for="poster-food-name" class="form-label">Food Name</label>
+                        <input id="poster-food-name" class="form-control" type="text" placeholder="Food name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="poster-food-arabic" class="form-label">Food Name (Arabic)</label>
+                        <input id="poster-food-arabic" class="form-control" type="text" placeholder="Auto-generated from Food Name" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="poster-food-price" class="form-label">Price</label>
+                        <input id="poster-food-price" class="form-control" type="text" placeholder="QR 20 / 40">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="poster-food-image" class="form-label">Image URL</label>
+                        <input id="poster-food-image" class="form-control" type="text" placeholder="Add image URL or upload path">
+                        <small class="text-muted">Use an image path or URL for the special food poster image.</small>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="poster-food-status" class="form-label">Status</label>
+                        <select id="poster-food-status" class="form-select">
+                            <option value="available">Available</option>
+                            <option value="unavailable">Unavailable</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="poster-food-description" class="form-label">Description</label>
+                        <textarea id="poster-food-description" class="form-control" rows="3" placeholder="Enter a short description"></textarea>
+                    </div>
+                    <div class="col-12 d-flex gap-2">
+                        <button type="submit" class="btn btn-success btn-small" id="poster-food-submit">Save Food</button>
+                        <button type="button" class="btn btn-secondary btn-small" id="poster-food-reset">Reset</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="admin-card">
+                <h2>Added Home Page Foods</h2>
+                <div id="poster-food-list" class="poster-food-list mt-3"></div>
+            </section>
+        </div>
+    </div>
+
+    <footer class="admin-footer">
+        <p>Special poster admin page saved in <strong>/admin/special-poster.html</strong>.</p>
+    </footer>
+
+    <script>
+        const authScreen = document.getElementById('auth-screen');
+        const authTitle = document.getElementById('auth-title');
+        const authMessage = document.getElementById('auth-message');
+        const authForm = document.getElementById('auth-form');
+        const authUsername = document.getElementById('auth-username');
+        const authPassword = document.getElementById('auth-password');
+        const authSubmit = document.getElementById('auth-submit');
+        const adminPanel = document.getElementById('admin-panel');
+        const posterFoodForm = document.getElementById('poster-food-form');
+        const posterFoodId = document.getElementById('poster-food-id');
+        const posterFoodName = document.getElementById('poster-food-name');
+        const posterFoodArabic = document.getElementById('poster-food-arabic');
+        const posterFoodPrice = document.getElementById('poster-food-price');
+        const posterFoodImage = document.getElementById('poster-food-image');
+        const posterFoodStatus = document.getElementById('poster-food-status');
+        const posterFoodDescription = document.getElementById('poster-food-description');
+        const posterFoodList = document.getElementById('poster-food-list');
+        const posterFoodSubmit = document.getElementById('poster-food-submit');
+        const currentUserBadge = document.getElementById('current-user-badge');
+        const adminOptions = document.getElementById('admin-options');
+
+        let specialFoods = JSON.parse(localStorage.getItem('specialPosterFoods') || '[]');
+        let adminUsers = JSON.parse(localStorage.getItem('adminUsers') || 'null');
+        if (!Array.isArray(adminUsers)) {
+            adminUsers = [];
+            const legacyUser = JSON.parse(localStorage.getItem('adminUser') || 'null');
+            if (legacyUser) {
+                adminUsers = [{ username: legacyUser.username, password: legacyUser.password }];
+            }
+        }
+        const mainAdminUsername = 'RASHID313';
+        const mainAdminPassword = '662830';
+        const mainAdminIndex = adminUsers.findIndex(user => user.username.toLowerCase() === mainAdminUsername.toLowerCase());
+        if (mainAdminIndex >= 0) {
+            adminUsers[mainAdminIndex].password = btoa(mainAdminPassword);
+        } else {
+            adminUsers.unshift({ username: mainAdminUsername, password: btoa(mainAdminPassword) });
+        }
+        localStorage.setItem('adminUsers', JSON.stringify(adminUsers));
+        let adminUser = JSON.parse(sessionStorage.getItem('currentAdminUser') || 'null');
+        let adminLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
+        let currentEditingPosterFood = null;
+
+        function savePosterFoods() {
+            try {
+                localStorage.setItem('specialPosterFoods', JSON.stringify(specialFoods));
+                return true;
+            } catch (error) {
+                console.error('Could not save special foods:', error);
+                alert('Unable to save food. The selected image may be too large or browser storage is full. Please try a smaller image.');
+                return false;
+            }
+        }
+
+        function findUser(username) {
+            const normalizedUsername = username.trim().toLowerCase();
+            return adminUsers.find(user => user.username.toLowerCase() === normalizedUsername);
+        }
+
+        function verifyUser(username, password) {
+            const user = findUser(username);
+            return !!user && user.password === btoa(password);
+        }
+
+        function updatePosterFoodForm(food = null) {
+            if (!food) {
+                posterFoodId.value = '';
+                posterFoodName.value = '';
+                posterFoodArabic.value = '';
+                posterFoodPrice.value = '';
+                posterFoodImage.value = '';
+                posterFoodStatus.value = 'available';
+                posterFoodDescription.value = '';
+                posterFoodSubmit.textContent = 'Save Food';
+                return;
+            }
+            posterFoodId.value = food.id;
+            posterFoodName.value = food.name;
+            posterFoodArabic.value = food.arabicName || '';
+            posterFoodPrice.value = food.price || '';
+            posterFoodImage.value = food.image || '';
+            posterFoodStatus.value = food.status || 'available';
+            posterFoodDescription.value = food.description || '';
+            posterFoodSubmit.textContent = 'Update Food';
+        }
+
+        function translateFoodNameToArabic(name) {
+            const dictionary = {
+                chicken: 'دجاج',
+                beef: 'لحم بقري',
+                lamb: 'لحم ضأن',
+                fish: 'سمك',
+                cheese: 'جبن',
+                rice: 'أرز',
+                salad: 'سلطة',
+                burger: 'برغر',
+                pizza: 'بيتزا',
+                soup: 'حساء',
+                pasta: 'مكرونة',
+                sandwich: 'ساندويتش',
+                fries: 'بطاطس مقلية',
+                cake: 'كيك',
+                dessert: 'حلويات',
+                tea: 'شاي',
+                coffee: 'قهوة',
+                karak: 'كرك',
+                kebab: 'كباب',
+                shawarma: 'شاورما',
+                hummus: 'حمص',
+                falafel: 'فلافل'
+            };
+            const transliteration = {
+                a: 'ا', b: 'ب', c: 'ك', d: 'د', e: 'ي', f: 'ف', g: 'ج', h: 'ه', i: 'ي', j: 'ج', k: 'ك', l: 'ل', m: 'م', n: 'ن', o: 'و', p: 'ب', q: 'ق', r: 'ر', s: 'س', t: 'ت', u: 'و', v: 'ف', w: 'و', x: 'كس', y: 'ي', z: 'ز'
+            };
+            if (!name.trim()) return '';
+            return name.split(/\s+/).map(word => {
+                const lowerWord = word.toLowerCase();
+                if (dictionary[lowerWord]) return dictionary[lowerWord];
+                return lowerWord.split('').map(ch => transliteration[ch] || ch).join('');
+            }).join(' ');
+        }
+
+        function showAdminPanel() {
+            authScreen.classList.add('d-none');
+            adminPanel.classList.remove('d-none');
+            adminLoggedIn = true;
+            sessionStorage.setItem('adminLoggedIn', 'true');
+            if (adminUser) {
+                sessionStorage.setItem('currentAdminUser', JSON.stringify(adminUser));
+                currentUserBadge.textContent = `Signed in as ${adminUser.username}`;
+            }
+            renderPosterFoodList();
+        }
+
+        function showAuthScreen() {
+            authScreen.classList.remove('d-none');
+            adminPanel.classList.add('d-none');
+            sessionStorage.removeItem('adminLoggedIn');
+            sessionStorage.removeItem('currentAdminUser');
+            adminUser = null;
+            currentUserBadge.textContent = 'Not signed in';
+        }
+
+        authForm.addEventListener('submit', event => {
+            event.preventDefault();
+            const username = authUsername.value.trim();
+            const password = authPassword.value;
+            if (!username || !password) {
+                alert('Please enter both username and password.');
+                return;
+            }
+            if (!verifyUser(username, password)) {
+                alert('Invalid username or password.');
+                return;
+            }
+            adminUser = findUser(username);
+            showAdminPanel();
+        });
+
+        function goBackToAdmin() {
+            if (adminUser) {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                sessionStorage.setItem('currentAdminUser', JSON.stringify(adminUser));
+            }
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('back-to-admin').addEventListener('click', goBackToAdmin);
+
+        adminOptions.addEventListener('change', () => {
+            const value = adminOptions.value;
+            if (value === 'admin-home') {
+                goBackToAdmin();
+            } else if (value === 'home') {
+                window.location.href = '../index.html';
+            } else if (value === 'menu') {
+                window.location.href = '../menu.html';
+            } else if (value === 'logout') {
+                showAuthScreen();
+            }
+            adminOptions.value = 'admin-home';
+        });
+
+        posterFoodName.addEventListener('input', () => {
+            posterFoodArabic.value = translateFoodNameToArabic(posterFoodName.value);
+        });
+
+        function renderPosterFoodList() {
+            const displayedFoods = specialFoods.filter(food => food.status === 'available');
+            posterFoodList.innerHTML = '';
+            if (displayedFoods.length === 0) {
+                posterFoodList.innerHTML = '<p class="text-muted">No home page foods added yet.</p>';
+                return;
+            }
+            displayedFoods.forEach(food => {
+                const imageUrl = food.image || '../page-thumbs/page2_Im0.jpg';
+                const card = document.createElement('div');
+                card.className = 'poster-food-card';
+                card.innerHTML = `
+                    <img src="${imageUrl}" alt="${food.name}">
+                    <strong>${food.name}</strong>
+                    ${food.arabicName ? `<p class="arabic-name">${food.arabicName}</p>` : ''}
+                    <p>${food.description || 'No description provided.'}</p>
+                    <div class="meta">
+                        <span>Price: ${food.price || 'N/A'}</span>
+                        <span>Status: ${food.status}</span>
+                    </div>
+                    <div class="actions">
+                        <button type="button" class="btn btn-outline-primary btn-small" onclick="editPosterFood('${food.id}')">Edit</button>
+                        <button type="button" class="btn btn-outline-danger btn-small" onclick="deletePosterFood('${food.id}')">Remove</button>
+                    </div>
+                `;
+                posterFoodList.appendChild(card);
+            });
+        }
+
+        function editPosterFood(id) {
+            const food = specialFoods.find(item => item.id === id);
+            if (!food) return;
+            currentEditingPosterFood = id;
+            posterFoodId.value = food.id;
+            posterFoodName.value = food.name;
+            posterFoodArabic.value = food.arabicName || '';
+            posterFoodPrice.value = food.price || '';
+            posterFoodImage.value = '';
+            posterFoodStatus.value = food.status || 'available';
+            posterFoodDescription.value = food.description || '';
+            document.getElementById('poster-food-submit').textContent = 'Update Food';
+        }
+
+        function deletePosterFood(id) {
+            specialFoods = specialFoods.filter(item => item.id !== id);
+            savePosterFoods();
+            renderPosterFoodList();
+        }
+
+        posterFoodForm.addEventListener('submit', event => {
+            event.preventDefault();
+            if (!adminLoggedIn) {
+                alert('Please log in to manage home page foods.');
+                return;
+            }
+            const editing = Boolean(posterFoodId.value);
+            if (!editing && specialFoods.length >= 10) {
+                alert('The special food admin page can only store up to 10 food items.');
+                return;
+            }
+            const imagePath = posterFoodImage.value.trim() || '../page-thumbs/page2_Im0.jpg';
+            const id = posterFoodId.value || Date.now().toString();
+            const food = {
+                id,
+                name: posterFoodName.value.trim(),
+                arabicName: posterFoodArabic.value.trim(),
+                price: posterFoodPrice.value.trim(),
+                image: imagePath,
+                description: posterFoodDescription.value.trim(),
+                status: posterFoodStatus.value
+            };
+            if (!food.name) {
+                alert('Please enter a food name.');
+                return;
+            }
+            const index = specialFoods.findIndex(item => item.id === id);
+            if (index >= 0) {
+                specialFoods[index] = food;
+            } else {
+                specialFoods.push(food);
+            }
+            if (!savePosterFoods()) {
+                return;
+            }
+            renderPosterFoodList();
+            posterFoodForm.reset();
+            posterFoodStatus.value = 'available';
+            posterFoodSubmit.textContent = 'Save Food';
+            currentEditingPosterFood = null;
+        });
+
+        document.getElementById('poster-food-reset').addEventListener('click', () => {
+            posterFoodForm.reset();
+            posterFoodStatus.value = 'available';
+            posterFoodSubmit.textContent = 'Save Food';
+            currentEditingPosterFood = null;
+        });
+
+        if (adminLoggedIn) {
+            showAdminPanel();
+        }
+    </script>
+</body>
+</html>

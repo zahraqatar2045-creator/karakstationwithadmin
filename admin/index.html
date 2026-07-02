@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Admin Page</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(150deg, #111827 0%, #1f2937 45%, #111827 100%);
+            color: #f8fafc;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 18px 60px;
+        }
+        .admin-card {
+            background: rgba(15, 23, 42, 0.94);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 28px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.4);
+        }
+        .admin-card h2 {
+            margin-top: 0;
+            color: #e2e8f0;
+            letter-spacing: 0.01em;
+        }
+        .auth-card {
+            max-width: 700px;
+            margin: 0 auto 32px;
+            padding: 40px;
+            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 32px;
+            box-shadow: 0 25px 80px rgba(15, 23, 42, 0.45);
+        }
+        .auth-card h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        .auth-card p {
+            color: #cbd5e1;
+            margin-bottom: 28px;
+        }
+        .admin-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: center;
+            padding: 30px 32px;
+            background: rgba(15, 23, 42, 0.98);
+            border-radius: 28px;
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            margin-bottom: 24px;
+        }
+        .admin-header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #fff;
+        }
+        .admin-header p {
+            margin: 8px 0 0;
+            color: #94a3b8;
+            max-width: 600px;
+        }
+        .form-label {
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+        .form-control,
+        .form-select {
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            color: #e2e8f0;
+            box-shadow: inset 0 2px 12px rgba(15, 23, 42, 0.4);
+        }
+        .form-control::placeholder {
+            color: #94a3b8;
+        }
+        .btn-primary {
+            background: #ef4444;
+            border-color: transparent;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: #f87171;
+            transform: translateY(-1px);
+            box-shadow: 0 18px 28px rgba(248, 113, 113, 0.22);
+        }
+        .btn-outline-primary {
+            border-color: rgba(239, 68, 68, 0.35);
+            color: #f87171;
+            background: transparent;
+        }
+        .btn-outline-primary:hover,
+        .btn-outline-primary:focus {
+            background: rgba(248, 113, 113, 0.08);
+            color: #fda4af;
+        }
+        .btn-outline-danger {
+            border-color: rgba(248, 113, 113, 0.35);
+            color: #f87171;
+            background: transparent;
+        }
+        .btn-outline-danger:hover,
+        .btn-outline-danger:focus {
+            background: rgba(248, 113, 113, 0.12);
+        }
+        .btn-small {
+            padding: 12px 20px;
+            font-size: 14px;
+            border-radius: 14px;
+        }
+        .food-items-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 18px;
+            margin: 0;
+            padding: 0;
+        }
+        .food-item-card {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            border-radius: 24px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+            min-height: 320px;
+        }
+        .food-item-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 18px;
+        }
+        .food-item-card-body {
+            display: grid;
+            gap: 10px;
+        }
+        .food-item-card h3 {
+            margin: 0;
+            color: #fff;
+            font-size: 18px;
+            line-height: 1.2;
+        }
+        .food-item-card .arabic-name {
+            margin: 0;
+            color: #fbbf24;
+            font-size: 16px;
+            line-height: 1.3;
+            direction: rtl;
+            text-align: right;
+        }
+        .food-item-card p,
+        .food-item-card span {
+            color: #cbd5e1;
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .food-item-card .food-meta {
+            display: grid;
+            gap: 8px;
+        }
+        .food-item-card .food-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 8px 12px;
+            font-size: 13px;
+            color: #e2e8f0;
+        }
+        .food-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        .category-chip {
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .category-chip span {
+            color: #cbd5e1;
+        }
+        .category-chip button {
+            border: none;
+            background: transparent;
+            color: #f87171;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .admin-footer {
+            padding: 22px 0;
+            text-align: center;
+            color: #94a3b8;
+        }
+        .admin-footer strong {
+            color: #e2e8f0;
+        }
+        .form-control:focus,
+        .form-select:focus {
+            border-color: rgba(239, 68, 68, 0.7);
+            box-shadow: 0 0 0 0.2rem rgba(248, 113, 113, 0.18);
+            outline: none;
+        }
+        .list-group-item {
+            background: transparent;
+            border: none;
+            padding: 18px 0;
+        }
+        .list-group {
+            margin: 0;
+            padding: 0;
+        }
+        .list-group-item + .list-group-item {
+            border-top: 1px solid rgba(148, 163, 184, 0.14);
+        }
+        .text-muted {
+            color: #94a3b8 !important;
+        }
+        .badge {
+            background: rgba(239, 68, 68, 0.12);
+            color: #fee2e2;
+            border: 1px solid rgba(248, 113, 113, 0.4);
+            padding: 8px 14px;
+            border-radius: 999px;
+        }
+        .dropdown .form-select {
+            min-width: 180px;
+        }
+        @media (max-width: 1400px) {
+            .food-items-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 1100px) {
+            .food-items-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 860px) {
+            .food-items-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 640px) {
+            .food-items-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 991px) {
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .dropdown .form-select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section id="auth-screen" class="admin-card auth-card">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <div>
+                    <h2 id="auth-title">Admin Login</h2>
+                    <p id="auth-message">Secure access to your menu management dashboard.</p>
+                </div>
+                <div>
+                    <span class="badge">Secure login</span>
+                </div>
+            </div>
+            <form id="auth-form" class="row g-3">
+                <div class="col-md-6">
+                    <label for="auth-username" class="form-label">Username</label>
+                    <input id="auth-username" class="form-control" type="text" placeholder="Enter username" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="auth-password" class="form-label">Password</label>
+                    <input id="auth-password" class="form-control" type="password" placeholder="Enter password" required>
+                </div>
+                <div class="col-md-6 d-none" id="auth-confirm-group">
+                    <label for="auth-confirm" class="form-label">Confirm Password</label>
+                    <input id="auth-confirm" class="form-control" type="password" placeholder="Confirm password">
+                </div>
+                <div class="col-12 d-flex flex-wrap gap-2">
+                    <button type="submit" id="auth-submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </section>
+        <div id="admin-panel" class="d-none">
+            <header class="admin-header">
+                <div>
+                    <h1>Main Admin Dashboard</h1>
+                    <p>Welcome to the premium admin workspace. Control your menu, categories, and administrator accounts from one elegant dashboard.</p>
+                </div>
+                <div class="d-flex flex-wrap gap-3 align-items-center">
+                    <span id="current-user-badge" class="badge">Not signed in</span>
+                    <div class="dropdown">
+                        <select id="admin-options" class="form-select form-select-sm">
+                            <option value="manage-admins">Manage Admins</option>
+                            <option value="special-poster">Special Poster</option>
+                            <option value="home">Back to Home</option>
+                            <option value="menu">View Menu</option>
+                            <option value="logout">Logout</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <section class="admin-card" id="manage-admins-section">
+                <h2>Manage Admins</h2>
+                <p class="text-muted">Use the administrator username and password already saved below, or add more admins.</p>
+                <form id="user-form" class="row g-3">
+                    <div class="col-md-4">
+                        <label for="user-username" class="form-label">Username</label>
+                        <input id="user-username" class="form-control" type="text" placeholder="Enter username" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="user-password" class="form-label">Password</label>
+                        <input id="user-password" class="form-control" type="password" placeholder="Enter password" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="user-confirm" class="form-label">Confirm Password</label>
+                        <input id="user-confirm" class="form-control" type="password" placeholder="Confirm password" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success btn-small">Add Admin</button>
+                    </div>
+                </form>
+                <div id="user-list" class="mt-3"></div>
+            </section>
+
+            <section class="admin-card">
+                <h2>Add Category</h2>
+                <form id="category-form" class="row g-3">
+                <div class="col-sm-8">
+                    <label for="category-name" class="form-label">Category Name</label>
+                    <input id="category-name" class="form-control" type="text" placeholder="e.g. Breakfast" required>
+                </div>
+                <div class="col-sm-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100 btn-small">Add Category</button>
+                </div>
+            </form>
+            <div class="category-list mt-3" id="category-list"></div>
+        </section>
+
+        <section class="admin-card">
+            <h2>Add / Edit Food</h2>
+            <form id="food-form" class="row g-3">
+                <input type="hidden" id="food-id">
+                <div class="col-md-6">
+                    <label for="food-name" class="form-label">Food Name</label>
+                    <input id="food-name" class="form-control" type="text" placeholder="Food name" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="food-arabic-name" class="form-label">Food Name (Arabic)</label>
+                    <input id="food-arabic-name" class="form-control" type="text" placeholder="Auto-generated from Food Name" readonly>
+                </div>
+                <div class="col-md-3">
+                    <label for="food-amount" class="form-label">Amount</label>
+                    <input id="food-amount" class="form-control" type="text" placeholder="e.g. QR 25 / 28" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="food-image" class="form-label">Image URL</label>
+                    <input id="food-image" class="form-control" type="text" placeholder="Add image URL or upload path">
+                    <small class="text-muted">Leave blank to use the default image link.</small>
+                </div>
+                <div class="col-md-3">
+                    <label for="food-category" class="form-label">Category</label>
+                    <select id="food-category" class="form-select" required>
+                        <option value="">Select category</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="food-status" class="form-label">Status</label>
+                    <select id="food-status" class="form-select">
+                        <option value="available">Available</option>
+                        <option value="unavailable">Unavailable</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label for="food-description" class="form-label">Description</label>
+                    <textarea id="food-description" class="form-control" rows="4" placeholder="Describe the food item"></textarea>
+                </div>
+                <div class="col-12 d-flex gap-2">
+                    <button type="submit" class="btn btn-success btn-small" id="food-submit">Save Food</button>
+                    <button type="button" class="btn btn-secondary btn-small" id="food-reset">Reset</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="admin-card">
+            <h2>Food Items</h2>
+            <div id="food-list" class="food-items-grid"></div>
+        </section>
+    </div>
+
+    <footer class="admin-footer">
+        <p>Food admin page saved in <strong>/admin/index.html</strong>.</p>
+    </footer>
+
+    <script>
+        const authScreen = document.getElementById('auth-screen');
+        const authTitle = document.getElementById('auth-title');
+        const authMessage = document.getElementById('auth-message');
+        const authForm = document.getElementById('auth-form');
+        const authUsername = document.getElementById('auth-username');
+        const authPassword = document.getElementById('auth-password');
+        const authConfirm = document.getElementById('auth-confirm');
+        const authConfirmGroup = document.getElementById('auth-confirm-group');
+        const authSubmit = document.getElementById('auth-submit');
+        const adminPanel = document.getElementById('admin-panel');
+        const logoutBtn = document.getElementById('logout-btn');
+        const categoryForm = document.getElementById('category-form');
+        const categoryNameInput = document.getElementById('category-name');
+        const categoryList = document.getElementById('category-list');
+        const foodForm = document.getElementById('food-form');
+        const foodIdInput = document.getElementById('food-id');
+        const foodNameInput = document.getElementById('food-name');
+        const foodArabicNameInput = document.getElementById('food-arabic-name');
+        const foodAmountInput = document.getElementById('food-amount');
+        const foodImageInput = document.getElementById('food-image');
+        const foodCategorySelect = document.getElementById('food-category');
+        const foodDescriptionInput = document.getElementById('food-description');
+        const foodStatusSelect = document.getElementById('food-status');
+        const foodList = document.getElementById('food-list');
+        const foodResetButton = document.getElementById('food-reset');
+        const userForm = document.getElementById('user-form');
+        const userUsernameInput = document.getElementById('user-username');
+        const userPasswordInput = document.getElementById('user-password');
+        const userConfirmInput = document.getElementById('user-confirm');
+        const userList = document.getElementById('user-list');
+        const currentUserBadge = document.getElementById('current-user-badge');
+        const adminOptions = document.getElementById('admin-options');
+        const manageAdminsSection = document.getElementById('manage-admins-section');
+
+        let categories = JSON.parse(localStorage.getItem('adminCategories') || '[]');
+        let foods = JSON.parse(localStorage.getItem('adminFoods') || '[]');
+        let adminUsers = JSON.parse(localStorage.getItem('adminUsers') || 'null');
+        if (!Array.isArray(adminUsers)) {
+            adminUsers = [];
+            const legacyUser = JSON.parse(localStorage.getItem('adminUser') || 'null');
+            if (legacyUser) {
+                adminUsers = [{ username: legacyUser.username, password: legacyUser.password }];
+            }
+        }
+        const mainAdminUsername = 'RASHID313';
+        const mainAdminPassword = '662830';
+        const mainAdminIndex = adminUsers.findIndex(user => user.username.toLowerCase() === mainAdminUsername.toLowerCase());
+        if (mainAdminIndex >= 0) {
+            adminUsers[mainAdminIndex].password = btoa(mainAdminPassword);
+        } else {
+            adminUsers.unshift({ username: mainAdminUsername, password: btoa(mainAdminPassword) });
+        }
+        localStorage.setItem('adminUsers', JSON.stringify(adminUsers));
+        let adminUser = JSON.parse(sessionStorage.getItem('currentAdminUser') || 'null');
+        let adminLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
+        let currentEditingAdmin = null;
+
+        function saveState() {
+            localStorage.setItem('adminCategories', JSON.stringify(categories));
+            localStorage.setItem('adminFoods', JSON.stringify(foods));
+        }
+
+        function saveUsers() {
+            localStorage.setItem('adminUsers', JSON.stringify(adminUsers));
+        }
+
+        function saveUser(username, password) {
+            const normalizedUsername = username.trim();
+            if (!normalizedUsername) {
+                return { success: false, message: 'Please enter a username.' };
+            }
+            if (adminUsers.some(user => user.username.toLowerCase() === normalizedUsername.toLowerCase())) {
+                return { success: false, message: 'That username already exists.' };
+            }
+            adminUsers.push({ username: normalizedUsername, password: btoa(password) });
+            saveUsers();
+            return { success: true };
+        }
+
+        function findUser(username) {
+            const normalizedUsername = username.trim().toLowerCase();
+            return adminUsers.find(user => user.username.toLowerCase() === normalizedUsername);
+        }
+
+        function verifyUser(username, password) {
+            const user = findUser(username);
+            return !!user && user.password === btoa(password);
+        }
+
+        function isMainAdmin() {
+            return adminUser && adminUser.username.trim().toLowerCase() === 'rashid313';
+        }
+
+        function updateUser(oldUsername, newUsername, newPassword) {
+            const user = adminUsers.find(u => u.username.toLowerCase() === oldUsername.toLowerCase());
+            if (!user) {
+                return { success: false, message: 'User not found.' };
+            }
+            const normalizedUsername = newUsername.trim();
+            if (!normalizedUsername) {
+                return { success: false, message: 'Please enter a username.' };
+            }
+            if (oldUsername.toLowerCase() !== normalizedUsername.toLowerCase() &&
+                adminUsers.some(u => u.username.toLowerCase() === normalizedUsername.toLowerCase())) {
+                return { success: false, message: 'That username already exists.' };
+            }
+            user.username = normalizedUsername;
+            if (newPassword) {
+                user.password = btoa(newPassword);
+            }
+            saveUsers();
+            if (adminUser && adminUser.username.toLowerCase() === oldUsername.toLowerCase()) {
+                adminUser = { username: normalizedUsername, password: user.password };
+                sessionStorage.setItem('currentAdminUser', JSON.stringify(adminUser));
+                currentUserBadge.textContent = `Signed in as ${adminUser.username}`;
+            }
+            return { success: true };
+        }
+
+        let translationTimeout;
+
+        function clearAuthForm() {
+            authForm.reset();
+            userForm.reset();
+        }
+
+        function translateFoodNameToArabic(name) {
+            const dictionary = {
+                chicken: 'دجاج',
+                beef: 'لحم بقري',
+                lamb: 'لحم ضأن',
+                fish: 'سمك',
+                cheese: 'جبن',
+                rice: 'أرز',
+                salad: 'سلطة',
+                burger: 'برغر',
+                pizza: 'بيتزا',
+                soup: 'حساء',
+                pasta: 'مكرونة',
+                sandwich: 'ساندويتش',
+                fries: 'بطاطس مقلية',
+                cake: 'كيك',
+                dessert: 'حلويات',
+                tea: 'شاي',
+                coffee: 'قهوة',
+                chickenrice: 'دجاج مع أرز',
+                karak: 'كرك',
+                kebab: 'كباب',
+                shawarma: 'شاورما',
+                pizza: 'بيتزا',
+                hummus: 'حمص',
+                falafel: 'فلافل'
+            };
+            const transliteration = {
+                a: 'ا', b: 'ب', c: 'ك', d: 'د', e: 'ي', f: 'ف', g: 'ج', h: 'ه', i: 'ي', j: 'ج', k: 'ك', l: 'ل', m: 'م', n: 'ن', o: 'و', p: 'ب', q: 'ق', r: 'ر', s: 'س', t: 'ت', u: 'و', v: 'ف', w: 'و', x: 'كس', y: 'ي', z: 'ز'
+            };
+            if (!name.trim()) return '';
+            return name
+                .split(/\s+/)
+                .map(word => {
+                    const lowerWord = word.toLowerCase();
+                    if (dictionary[lowerWord]) {
+                        return dictionary[lowerWord];
+                    }
+                    return lowerWord
+                        .split('')
+                        .map(ch => transliteration[ch] || ch)
+                        .join('');
+                })
+                .join(' ');
+        }
+
+        function scheduleArabicTranslation() {
+            clearTimeout(translationTimeout);
+            translationTimeout = setTimeout(() => {
+                foodArabicNameInput.value = translateFoodNameToArabic(foodNameInput.value);
+            }, 300);
+        }
+
+        foodNameInput.addEventListener('input', scheduleArabicTranslation);
+
+        function updateAdminAccess() {
+            const canManageAdmins = isMainAdmin();
+            if (manageAdminsSection) {
+                manageAdminsSection.classList.toggle('d-none', !canManageAdmins);
+            }
+            if (adminOptions) {
+                const manageOption = Array.from(adminOptions.options).find(option => option.value === 'manage-admins');
+                if (manageOption) {
+                    manageOption.hidden = !canManageAdmins;
+                }
+                if (!canManageAdmins && adminOptions.value === 'manage-admins') {
+                    adminOptions.value = 'menu';
+                }
+            }
+            if (!canManageAdmins && userForm) {
+                userForm.querySelector('button[type="submit"]').disabled = true;
+            }
+        }
+
+        function showAdminPanel() {
+            authScreen.classList.add('d-none');
+            adminPanel.classList.remove('d-none');
+            sessionStorage.setItem('adminLoggedIn', 'true');
+            if (adminUser) {
+                sessionStorage.setItem('currentAdminUser', JSON.stringify(adminUser));
+                currentUserBadge.textContent = `Signed in as ${adminUser.username}`;
+            } else {
+                currentUserBadge.textContent = 'Signed in';
+            }
+            updateAdminAccess();
+            renderUsers();
+        }
+
+        function showAuthScreen() {
+            authScreen.classList.remove('d-none');
+            adminPanel.classList.add('d-none');
+            sessionStorage.removeItem('adminLoggedIn');
+            sessionStorage.removeItem('currentAdminUser');
+            adminUser = null;
+            currentUserBadge.textContent = 'Not signed in';
+        }
+
+        function updateAuthMode() {
+            authTitle.textContent = 'Admin Login';
+            authMessage.textContent = 'Enter your admin username and password to continue.';
+            authSubmit.textContent = 'Login';
+            authConfirmGroup.classList.add('d-none');
+            clearAuthForm();
+        }
+
+        function setAuthMode() {
+            updateAuthMode();
+        }
+
+        authForm.addEventListener('submit', event => {
+            event.preventDefault();
+            const username = authUsername.value.trim();
+            const password = authPassword.value;
+
+            if (!username || !password) {
+                alert('Please enter both username and password.');
+                return;
+            }
+
+            if (!verifyUser(username, password)) {
+                alert('Invalid username or password.');
+                return;
+            }
+
+            adminUser = findUser(username);
+            showAdminPanel();
+        });
+
+        adminOptions.addEventListener('change', () => {
+            const value = adminOptions.value;
+            if (value === 'special-poster') {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                if (adminUser) {
+                    sessionStorage.setItem('currentAdminUser', JSON.stringify(adminUser));
+                }
+                window.location.href = 'special-poster.html';
+            } else if (value === 'home') {
+                window.location.href = '../index.html';
+            } else if (value === 'menu') {
+                window.location.href = '../menu.html';
+            } else if (value === 'logout') {
+                showAuthScreen();
+                setAuthMode();
+            } else if (value === 'manage-admins') {
+                document.getElementById('manage-admins-section').scrollIntoView({ behavior: 'smooth' });
+            }
+            adminOptions.value = 'manage-admins';
+        });
+
+        userForm.addEventListener('submit', event => {
+            event.preventDefault();
+            if (!isMainAdmin()) {
+                alert('Only the main admin can manage admin accounts.');
+                return;
+            }
+            const username = userUsernameInput.value.trim();
+            const password = userPasswordInput.value;
+            const confirm = userConfirmInput.value;
+
+            if (!username || !password) {
+                alert('Please enter both username and password.');
+                return;
+            }
+            if (password !== confirm) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            if (currentEditingAdmin) {
+                const result = updateUser(currentEditingAdmin, username, password);
+                if (!result.success) {
+                    alert(result.message);
+                    return;
+                }
+                currentEditingAdmin = null;
+                userForm.reset();
+                document.querySelector('#user-form button[type="submit"]').textContent = 'Add Admin';
+                renderUsers();
+                alert(`User ${username} updated successfully.`);
+                return;
+            }
+
+            const result = saveUser(username, password);
+            if (!result.success) {
+                alert(result.message);
+                return;
+            }
+
+            userForm.reset();
+            renderUsers();
+            alert(`User ${username} created successfully.`);
+        });
+
+        updateAuthMode();
+        if (adminLoggedIn) {
+            showAdminPanel();
+        } else {
+            setAuthMode();
+        }
+
+        function renderCategories() {
+            categoryList.innerHTML = '';
+            foodCategorySelect.innerHTML = '<option value="">Select category</option>';
+            categories.forEach((category, index) => {
+                const chip = document.createElement('div');
+                chip.className = 'category-chip';
+                chip.innerHTML = `<span>${category}</span><button type="button" data-index="${index}">&times;</button>`;
+                categoryList.appendChild(chip);
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                foodCategorySelect.appendChild(option);
+            });
+        }
+
+        function editAdmin(username) {
+            const user = findUser(username);
+            if (!user) return;
+            currentEditingAdmin = user.username;
+            userUsernameInput.value = user.username;
+            userPasswordInput.value = '';
+            userConfirmInput.value = '';
+            document.querySelector('#user-form button[type="submit"]').textContent = 'Update Admin';
+        }
+
+        function deleteAdmin(username) {
+            if (!isMainAdmin()) return;
+            if (username === 'RASHID313') {
+                alert('Cannot delete the main admin account.');
+                return;
+            }
+            if (!confirm(`Remove admin ${username}?`)) return;
+            adminUsers = adminUsers.filter(user => user.username.toLowerCase() !== username.toLowerCase());
+            saveUsers();
+            renderUsers();
+        }
+
+        function renderUsers() {
+            userList.innerHTML = '';
+            if (!isMainAdmin()) {
+                userList.innerHTML = '<p class="text-muted mb-0">Only the main admin can view or manage admin accounts.</p>';
+                return;
+            }
+            if (adminUsers.length === 0) {
+                userList.innerHTML = '<p class="text-muted mb-0">No admins added yet.</p>';
+                return;
+            }
+
+            const userItems = adminUsers.map(user => {
+                const isCurrentUser = adminUser && adminUser.username === user.username;
+                const actions = `
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-outline-primary btn-small" onclick="editAdmin('${user.username}')">Edit</button>
+                        ${user.username === 'RASHID313' ? '' : `<button type="button" class="btn btn-outline-danger btn-small" onclick="deleteAdmin('${user.username}')">Delete</button>`}
+                    </div>
+                `;
+                return `
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span>${user.username}</span>
+                            <div class="text-muted small">${isCurrentUser ? 'Current admin' : 'Admin'}</div>
+                        </div>
+                        ${actions}
+                    </li>`;
+            }).join('');
+
+            userList.innerHTML = `
+                <div class="border rounded p-3 bg-light">
+                    <h6 class="mb-2">Saved Admin Accounts</h6>
+                    <ul class="list-group">${userItems}</ul>
+                </div>`;
+        }
+
+        function renderFoods() {
+            if (foods.length === 0) {
+                foodList.innerHTML = '<p class="text-muted">No food items added yet.</p>';
+                return;
+            }
+            foodList.innerHTML = foods.map(food => {
+                const imageUrl = food.image || 'https://scontent.fcjb3-4.fna.fbcdn.net/v/t39.30808-1/714840124_122096015613356445_2050879761889922079_n.jpg?stp=c174.62.769.769a_dst-jpg_tt6&cstp=mx769x769&ctp=s200x200&_nc_cat=101&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=5xShbNou5p0Q7kNvwE6_Zdy&_nc_oc=Ado-0tm4xXnqc8GfFmmQ7NNXDxGq-qy7Gf8bjZxNIjO3sNe1CcFf0cvqf3QZzVE3ybVLmP23UceOO9jIpn5Day3p&_nc_zt=24&_nc_ht=scontent.fcjb3-4.fna&_nc_gid=c97UsFo3mIfv63W42J45Gw&_nc_ss=7b2a8&oh=00_AQC-fMdy-oVB_AShr1-820_ZeKmvfGeczbSiGs1rOK_VRg&oe=6A4B23ED';
+                const statusLabel = food.status === 'unavailable' ? 'Unavailable' : 'Available';
+                return `
+                    <div class="food-item-card" data-id="${food.id}">
+                        <img src="${imageUrl}" alt="${food.name}">
+                        <div class="food-item-card-body">
+                            <h3>${food.name}</h3>
+                            ${food.arabicName ? `<p class="arabic-name">${food.arabicName}</p>` : ''}
+                            <p>${food.description || 'No description available.'}</p>
+                            <div class="food-meta">
+                                <span>Price: ${food.amount}</span>
+                                <span>Category: ${food.category || 'None'}</span>
+                                <span>Status: ${statusLabel}</span>
+                            </div>
+                        </div>
+                        <div class="food-actions">
+                            <button type="button" class="btn btn-outline-primary btn-small" data-action="edit" data-id="${food.id}">Edit</button>
+                            <button type="button" class="btn btn-outline-danger btn-small" data-action="delete" data-id="${food.id}">Delete</button>
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        function setForm(food = null) {
+            if (!food) {
+                foodIdInput.value = '';
+                foodNameInput.value = '';
+                foodArabicNameInput.value = '';
+                foodAmountInput.value = '';
+                foodCategorySelect.value = '';
+                foodDescriptionInput.value = '';
+                foodStatusSelect.value = 'available';
+                document.getElementById('food-submit').textContent = 'Save Food';
+                return;
+            }
+            foodIdInput.value = food.id;
+            foodNameInput.value = food.name;
+            foodArabicNameInput.value = food.arabicName || '';
+            foodAmountInput.value = food.amount;
+            foodImageInput.value = food.image || '';
+            foodCategorySelect.value = food.category;
+            foodDescriptionInput.value = food.description;
+            foodStatusSelect.value = food.status;
+            document.getElementById('food-submit').textContent = 'Update Food';
+        }
+
+        categoryForm.addEventListener('submit', event => {
+            event.preventDefault();
+            const value = categoryNameInput.value.trim();
+            if (!value) return;
+            if (!categories.includes(value)) {
+                categories.push(value);
+                saveState();
+                renderCategories();
+            }
+            categoryNameInput.value = '';
+        });
+
+        categoryList.addEventListener('click', event => {
+            if (!event.target.matches('button')) return;
+            const index = Number(event.target.dataset.index);
+            const removedCategory = categories[index];
+            categories.splice(index, 1);
+            foods = foods.map(food => ({ ...food, category: food.category === removedCategory ? '' : food.category }));
+            saveState();
+            renderCategories();
+            renderFoods();
+        });
+
+        foodForm.addEventListener('submit', event => {
+            event.preventDefault();
+            const id = foodIdInput.value || Date.now().toString();
+            const defaultImageUrl = 'https://scontent.fcjb3-4.fna.fbcdn.net/v/t39.30808-1/714840124_122096015613356445_2050879761889922079_n.jpg?stp=c174.62.769.769a_dst-jpg_tt6&cstp=mx769x769&ctp=s200x200&_nc_cat=101&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=5xShbNou5p0Q7kNvwE6_Zdy&_nc_oc=Ado-0tm4xXnqc8GfFmmQ7NNXDxGq-qy7Gf8bjZxNIjO3sNe1CcFf0cvqf3QZzVE3ybVLmP23UceOO9jIpn5Day3p&_nc_zt=24&_nc_ht=scontent.fcjb3-4.fna&_nc_gid=c97UsFo3mIfv63W42J45Gw&_nc_ss=7b2a8&oh=00_AQC-fMdy-oVB_AShr1-820_ZeKmvfGeczbSiGs1rOK_VRg&oe=6A4B23ED';
+            const foodItem = {
+                id,
+                name: foodNameInput.value.trim(),
+                arabicName: foodArabicNameInput.value.trim(),
+                amount: foodAmountInput.value.trim(),
+                image: foodImageInput.value.trim() || defaultImageUrl,
+                category: foodCategorySelect.value,
+                description: foodDescriptionInput.value.trim(),
+                status: foodStatusSelect.value
+            };
+            if (!foodItem.name || !foodItem.amount) return;
+            const existingIndex = foods.findIndex(item => item.id === id);
+            if (existingIndex >= 0) {
+                foods[existingIndex] = foodItem;
+            } else {
+                foods.push(foodItem);
+            }
+            saveState();
+            renderFoods();
+            setForm();
+        });
+
+        foodList.addEventListener('click', event => {
+            const action = event.target.dataset.action;
+            const id = event.target.dataset.id;
+            if (!action || !id) return;
+            if (action === 'edit') {
+                const food = foods.find(item => item.id === id);
+                if (food) setForm(food);
+            }
+            if (action === 'delete') {
+                foods = foods.filter(item => item.id !== id);
+                saveState();
+                renderFoods();
+                if (foodIdInput.value === id) setForm();
+            }
+        });
+
+        foodResetButton.addEventListener('click', () => setForm());
+
+        renderCategories();
+        renderFoods();
+        renderUsers();
+    </script>
+</body>
+</html>
