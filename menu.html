@@ -1,0 +1,1037 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Karak station </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+	<!-- CSS here -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/slicknav.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/gijgo.css">
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="css/fontawesome-all.min.css">
+	<link rel="stylesheet" href="css/themify-icons.css">
+	<link rel="stylesheet" href="css/slick.css">
+	<link rel="stylesheet" href="css/nice-select.css">
+	<link rel="stylesheet" href="css/style.css">
+    <style>
+        .menu-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto;
+            padding: 0;
+            list-style: none;
+        }
+        .menu-tabs .nav-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 22px;
+            min-width: 160px;
+            max-width: 240px;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,.08);
+            background: #fff;
+            color: #2b2b2b;
+            font-weight: 500;
+            text-transform: none;
+            font-size: 14px;
+            transition: all .25s ease;
+        }
+        .menu-tabs .nav-link:hover {
+            background: #ff5600;
+            border-color: #ff5600;
+            color: #fff;
+        }
+        .menu-tabs .nav-link.active {
+            background: #ff5600;
+            border-color: #ff5600;
+            color: #fff;
+        }
+        .menu-items-grid {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -12px;
+        }
+        .menu-items-grid .col-lg-4,
+        .menu-items-grid .col-md-6 {
+            padding: 12px;
+        }
+        .menu-item-card {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,.08);
+            border-radius: 18px;
+            padding: 16px;
+            min-height: 140px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+        .menu-item-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 16px;
+            flex-shrink: 0;
+        }
+        .menu-item-card-body {
+            flex: 1;
+            min-width: 0;
+        }
+        .menu-item-card-body h4 {
+            margin: 0 0 8px;
+            font-size: 18px;
+            line-height: 1.2;
+        }
+        .menu-item-card-body .arabic-name {
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.2;
+            color: #232323;
+        }
+        .menu-item-card-body p {
+            margin: 0;
+            color: #6d6d6d;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .menu-item-card-body .price {
+            display: inline-block;
+            margin-bottom: 8px;
+            color: #ff5600;
+            font-weight: 700;
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ff5600;
+            background: #fff;
+            color: #ff5600;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+        }
+        .qty-btn:hover {
+            background: #ff5600;
+            color: #fff;
+        }
+        .qty-display {
+            min-width: 50px;
+            text-align: center;
+            font-weight: bold;
+            color: #ff5600;
+        }
+        .selected-items-section {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 350px;
+            max-height: 500px;
+            background: #fff;
+            border: 2px solid #ff5600;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        .selected-items-section.show {
+            display: flex;
+        }
+        .selected-items-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff5600;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #ff5600;
+            padding-bottom: 10px;
+        }
+        .selected-items-list {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 12px;
+        }
+        .selected-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .selected-item-name {
+            flex: 1;
+            font-weight: 500;
+            color: #2b2b2b;
+        }
+        .selected-item-qty {
+            background: #ff5600;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+        .selected-item-price {
+            color: #ff5600;
+            font-weight: bold;
+        }
+        .total-section {
+            border-top: 2px solid #ff5600;
+            padding-top: 10px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: #2b2b2b;
+        }
+        .total-price {
+            color: #ff5600;
+            font-size: 20px;
+        }
+        .order-btn {
+            width: 100%;
+            padding: 12px;
+            background: #ff5600;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all 0.25s ease;
+        }
+        .order-btn:hover {
+            background: #e64a00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 86, 0, 0.3);
+        }
+        .order-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .remove-item-btn {
+            background: #ff6b6b;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 2px 8px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.25s ease;
+        }
+        .remove-item-btn:hover {
+            background: #ff5252;
+        }
+        #orderOnlineBtn {
+            display: none !important;
+        }
+        .size-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .size-modal.show {
+            display: flex;
+        }
+        .size-modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            text-align: center;
+        }
+        .size-modal-content h3 {
+            color: #ff5600;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        .size-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .size-btn {
+            padding: 12px;
+            border: 2px solid #ff5600;
+            background: #fff;
+            color: #ff5600;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.25s ease;
+        }
+        .size-btn:hover {
+            background: #ff5600;
+            color: #fff;
+        }
+        @media (max-width: 768px) {
+            .menu-tabs .nav-link {
+                min-width: 140px;
+                font-size: 13px;
+                padding: 10px 16px;
+            }
+            .menu-item-card {
+                flex-wrap: wrap;
+            }
+            .menu-item-card img {
+                width: 100%;
+                height: auto;
+            }
+            .selected-items-section {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+            .size-modal-content {
+                max-width: 90%;
+            }
+        }
+        
+        /* Logo and Text Animation */
+        @keyframes logoSlideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes textSlideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes textBounce {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(5px);
+            }
+        }
+        
+        .logo {
+            animation: logoSlideInLeft 0.8s ease-out;
+        }
+        
+        .logo a img {
+            animation: logoSlideInLeft 0.8s ease-out;
+        }
+        
+        .logo span {
+            animation: textSlideInRight 0.8s ease-out 0.3s both;
+        }
+        
+        .logo span:hover {
+            animation: textBounce 0.6s ease-in-out;
+        }
+        
+        /* Footer logo white color */
+        .footer-logo img {
+            filter: brightness(0) invert(1);
+        }
+    </style>
+</head>
+<body>
+    <!--? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="logo/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!--? Header Start -->
+        <div class="header-area">
+                <div class="main-header  header-sticky">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-2 col-lg-2 col-md-1">
+                                <div class="logo d-flex align-items-center">
+                                    <a href="index.html"><img src="logo/logo.png" alt=""></a>
+                                    <span style="color: #ff0033; font-size: 40px; font-weight: 600; margin-left: 10px; white-space: nowrap;">KARAK STATION</span>
+                                </div>
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-10">
+                                <div class="menu-main d-flex align-items-center justify-content-end">
+                                    <!-- Main-menu -->
+                                    <div class="main-menu f-right d-none d-lg-block">
+                                        <nav> 
+                                            <ul id="navigation">
+                                                <li><a href="index.html">Home</a></li>
+                                                <li><a href="about.html">About</a></li>
+                                                <li><a href="menu.html">Menu</a></li>
+                                                <li><a href="blog.html">Blog</a>
+                                                    <ul class="submenu">
+                                                        <li><a href="blog.html">Blog</a></li>
+                                                        <li><a href="blog_details.html">Blog Details</a></li>
+                                                        <li><a href="elements.html">Element</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="contact.html">Contact</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <div class="header-right-btn f-right d-none d-lg-block ml-20">
+                                        <a href="full_menu.html" class="border-btn header-btn">Full Menu</a>
+                                        <a href="menu.html" id="orderOnlineBtn" class="border-btn header-btn">Order Online</a>
+                                    </div>
+                                </div>
+                            </div>   
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!-- Header End -->
+    </header>
+    <main>
+        <!--? gallery Products Start -->
+        <section class="gallery-area fix ">
+            <!-- Gallery Top Start -->
+            <div class="gallery-top section-bg pt-90 pb-40" data-background="gallery/section_bg01.png">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="cl-xl-7 col-lg-8 col-md-10">
+                            <!-- Section Tittle -->
+                            <div class="section-tittle text-center mb-70">
+                                <span>Our Featured Menu</span>
+                                <h2>Fresh Favorites and Popular Picks</h2>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="properties__button">
+                            <!--Nav Button  -->
+                            <nav>
+                                <div class="nav nav-tabs menu-tabs" id="nav-tab" role="tablist"></div>
+                            </nav>
+                            <!--End Nav Button  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Gallery Top End -->
+            <!-- Gallery Bottom Start -->
+            <div class="container-fluid p-0">
+                <!-- Nav Card -->
+                <div class="tab-content" id="nav-tabContent"></div>
+                <!-- End Nav Card -->
+            </div>
+            <!-- Gallery Bottom End -->
+        </section>
+        <!-- gallery Products End -->
+        <script>
+            const adminCategories = JSON.parse(localStorage.getItem('adminCategories') || '[]');
+            const adminFoods = JSON.parse(localStorage.getItem('adminFoods') || '[]');
+            const fallbackImage = 'logo/karak_station_logo.png';
+            const menuData = {};
+            function slugify(text) {
+                return text.toString().toLowerCase().trim()
+                    .replace(/\s+/g, '-')
+                    .replace(/[^a-z0-9-]/g, '')
+                    .replace(/--+/g, '-');
+            }
+
+            function buildMenuData() {
+                const categories = [];
+                const items = {};
+                if (!adminFoods.length) {
+                    return { categories, items, source: 'empty' };
+                }
+                const availableFoods = adminFoods.filter(food => (food.status || 'available').toLowerCase() === 'available');
+                const itemCategories = [...new Set(availableFoods.map(item => (item.category || 'Uncategorized').trim()))];
+                itemCategories.forEach(category => {
+                    items[category] = availableFoods
+                        .filter(food => (food.category || 'Uncategorized').trim() === category)
+                        .map(food => ({
+                            name: food.name || 'Untitled item',
+                            arabicName: food.arabicName || '',
+                            price: food.amount || 'Price on request',
+                            image: food.image || fallbackImage,
+                            desc: food.description || '',
+                            status: food.status || 'available'
+                        }));
+                    categories.push(category);
+                });
+                return { categories, items, source: 'admin' };
+            }
+
+            function renderMenu(categoryName, categoryKey) {
+                const container = document.querySelector(`#nav-${categoryKey} .menu-items-grid`);
+                if (!container) return;
+                const categoryItems = activeMenuData.items[categoryName] || [];
+                container.innerHTML = categoryItems.map((item, index) => {
+                    const itemId = `${categoryKey}-${index}`;
+                    const animations = ['fadeInUp', 'fadeInLeft', 'fadeInRight', 'zoomIn'];
+                    const animation = animations[index % animations.length];
+                    const unavailable = item.status ? item.status.toLowerCase() !== 'available' : false;
+                    const menuImage = (item.image && item.image.startsWith('page-thumbs/')) ? fallbackImage : (item.image || fallbackImage);
+                    return `
+                        <div class="col-lg-4 col-md-6 wow ${animation}" data-wow-delay="${index * 0.1}s" data-wow-duration="0.8s">
+                            <div class="menu-item-card" style="${unavailable ? 'opacity:0.55; filter: grayscale(0.2);' : ''}">
+                                <img src="${menuImage}" alt="${item.name}">
+                                <div class="menu-item-card-body">
+                                    <span class="price">${item.price}</span>
+                                    <h4>${item.name}</h4>
+                                    ${item.arabicName ? `<h4 class="arabic-name">${item.arabicName}</h4>` : ''}
+                                    <p>${item.desc}</p>
+                                    <div class="quantity-selector">
+                                        <button class="qty-btn" onclick="decreaseQty('${itemId}')" ${unavailable ? 'disabled' : ''}>−</button>
+                                        <div class="qty-display" id="qty-${itemId}">0</div>
+                                        <button class="qty-btn" onclick="increaseQty('${itemId}', '${item.name}', '${item.price}')" ${unavailable ? 'disabled' : ''}>+</button>
+                                    </div>
+                                    ${unavailable ? '<div style="margin-top: 10px; color:#c0392b; font-weight:600;">Unavailable</div>' : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            function buildMenuTabs() {
+                const navTab = document.getElementById('nav-tab');
+                const tabContent = document.getElementById('nav-tabContent');
+                navTab.innerHTML = '';
+                tabContent.innerHTML = '';
+
+                if (activeMenuData.categories.length === 0) {
+                    navTab.innerHTML = '<div style="width:100%; text-align:center; padding: 40px 0; color:#333; font-size: 18px;">The menu is being updated. Please check back soon.</div>';
+                    tabContent.innerHTML = '<div class="tab-pane fade show active"><div class="row justify-content-center"><div class="col-12 text-center py-5"><p style="font-size:18px; color:#666;">No menu items are available right now.</p></div></div></div>';
+                    return;
+                }
+                activeMenuData.categories.forEach((categoryName, index) => {
+                    const categoryKey = slugify(categoryName) || `cat-${index}`;
+                    const activeClass = index === 0 ? 'active' : '';
+                    const selected = index === 0 ? 'true' : 'false';
+                    const tabId = `nav-${categoryKey}`;
+                    const tabLinkId = `${tabId}-tab`;
+
+                    const tabLink = document.createElement('a');
+                    tabLink.className = `nav-item nav-link ${activeClass}`;
+                    tabLink.id = tabLinkId;
+                    tabLink.dataset.toggle = 'tab';
+                    tabLink.href = `#${tabId}`;
+                    tabLink.role = 'tab';
+                    tabLink.ariaControls = tabId;
+                    tabLink.ariaSelected = selected;
+                    tabLink.textContent = categoryName;
+                    navTab.appendChild(tabLink);
+
+                    const pane = document.createElement('div');
+                    pane.className = `tab-pane fade ${index === 0 ? 'show active' : ''}`;
+                    pane.id = tabId;
+                    pane.role = 'tabpanel';
+                    pane.ariaLabelledby = tabLinkId;
+                    pane.innerHTML = '<div class="row menu-items-grid"></div>';
+                    tabContent.appendChild(pane);
+
+                    renderMenu(categoryName, categoryKey);
+                });
+            }
+
+            const activeMenuData = buildMenuData();
+            buildMenuTabs();
+
+            // Cart management
+            let cart = {};
+            const WhatsAppPhoneNumber = '+97477821400';
+            let currentSizeSelection = {
+                itemId: null,
+                itemName: null,
+                prices: [],
+                sizes: []
+            };
+            
+            function getSizeInfo(priceStr) {
+                // Parse prices like "QR 22 / 26" or "QR 22"
+                const prices = priceStr.match(/\d+/g);
+                if (!prices || prices.length === 0) return { sizes: ['Single'], prices: [0] };
+                
+                if (prices.length === 1) {
+                    return { sizes: ['Single'], prices: [parseInt(prices[0])] };
+                } else if (prices.length === 2) {
+                    return { sizes: ['Small', 'Large'], prices: [parseInt(prices[0]), parseInt(prices[1])] };
+                } else if (prices.length === 3) {
+                    return { sizes: ['Small', 'Medium', 'Large'], prices: [parseInt(prices[0]), parseInt(prices[1]), parseInt(prices[2])] };
+                }
+                
+                return { sizes: ['Single'], prices: [parseInt(prices[0])] };
+            }
+            
+            function increaseQty(itemId, itemName, itemPrice) {
+                const sizeInfo = getSizeInfo(itemPrice);
+                
+                // If only one size, add directly
+                if (sizeInfo.sizes.length === 1) {
+                    if (!cart[itemId]) {
+                        cart[itemId] = { 
+                            name: itemName, 
+                            price: sizeInfo.prices[0], 
+                            size: sizeInfo.sizes[0],
+                            qty: 0 
+                        };
+                    }
+                    cart[itemId].qty++;
+                    updateQtyDisplay(itemId);
+                    updateSelectedItems();
+                } else {
+                    // Show size selection modal
+                    currentSizeSelection.itemId = itemId;
+                    currentSizeSelection.itemName = itemName;
+                    currentSizeSelection.prices = sizeInfo.prices;
+                    currentSizeSelection.sizes = sizeInfo.sizes;
+                    
+                    showSizeModal(itemName, sizeInfo.sizes, sizeInfo.prices);
+                }
+            }
+            
+            function showSizeModal(itemName, sizes, prices) {
+                document.getElementById('sizeModalTitle').textContent = 'Select Size for ' + itemName;
+                
+                const sizeOptions = document.getElementById('sizeOptions');
+                sizeOptions.innerHTML = sizes.map((size, index) => `
+                    <button class="size-btn" onclick="selectSize(${index})">
+                        ${size} - QR ${prices[index]}
+                    </button>
+                `).join('');
+                
+                document.getElementById('sizeModal').classList.add('show');
+            }
+            
+            function selectSize(sizeIndex) {
+                // Directly add to cart when size is clicked
+                const selectedSize = currentSizeSelection.sizes[sizeIndex];
+                const selectedPrice = currentSizeSelection.prices[sizeIndex];
+                const itemId = currentSizeSelection.itemId + '-' + selectedSize;
+                
+                if (!cart[itemId]) {
+                    cart[itemId] = {
+                        name: currentSizeSelection.itemName,
+                        price: selectedPrice,
+                        size: selectedSize,
+                        qty: 0,
+                        originalId: currentSizeSelection.itemId
+                    };
+                }
+                cart[itemId].qty++;
+                updateQtyDisplay(currentSizeSelection.itemId);
+                closeSizeModal();
+                updateSelectedItems();
+            }
+            
+            function closeSizeModal() {
+                document.getElementById('sizeModal').classList.remove('show');
+                currentSizeSelection = {
+                    itemId: null,
+                    itemName: null,
+                    prices: [],
+                    sizes: []
+                };
+            }
+            
+            function closeSizeModalOnBgClick(event) {
+                if (event.target.id === 'sizeModal') {
+                    closeSizeModal();
+                }
+            }
+            
+            function decreaseQty(itemId) {
+                // For items with sizes, we need to find all variants
+                const cartKeys = Object.keys(cart).filter(key => 
+                    key.startsWith(itemId + '-') || key === itemId
+                );
+                
+                // Find the cart item to decrease
+                let foundKey = null;
+                for (let key of cartKeys) {
+                    if (cart[key] && cart[key].qty > 0) {
+                        foundKey = key;
+                        break;
+                    }
+                }
+                
+                if (foundKey && cart[foundKey].qty > 0) {
+                    cart[foundKey].qty--;
+                    updateQtyDisplay(itemId);
+                    if (cart[foundKey].qty === 0) {
+                        delete cart[foundKey];
+                    }
+                    updateSelectedItems();
+                }
+            }
+            
+            function updateQtyDisplay(itemId) {
+                const qtyDisplay = document.getElementById('qty-' + itemId);
+                if (qtyDisplay) {
+                    let totalQty = 0;
+                    Object.keys(cart).forEach(key => {
+                        if (key.startsWith(itemId + '-') || key === itemId) {
+                            totalQty += cart[key].qty;
+                        }
+                    });
+                    qtyDisplay.textContent = totalQty;
+                }
+            }
+            
+            function updateSelectedItems() {
+                const selectedList = document.getElementById('selectedItemsList');
+                const selectedSection = document.getElementById('selectedItemsSection');
+                const whatsappBtn = document.getElementById('whatsappBtn');
+                
+                const selectedItems = Object.keys(cart).filter(key => cart[key].qty > 0);
+                
+                if (selectedItems.length === 0) {
+                    selectedList.innerHTML = '<div style="color: #999; text-align: center; padding: 20px;">No items selected</div>';
+                    selectedSection.classList.remove('show');
+                    whatsappBtn.disabled = true;
+                    updateTotalPrice();
+                    return;
+                }
+                
+                selectedSection.classList.add('show');
+                whatsappBtn.disabled = false;
+                
+                selectedList.innerHTML = selectedItems.map(itemId => {
+                    const item = cart[itemId];
+                    const subtotal = item.price * item.qty;
+                    
+                    return `
+                        <div class="selected-item">
+                            <span class="selected-item-name">${item.name} (${item.size})</span>
+                            <span class="selected-item-qty">x${item.qty}</span>
+                            <span class="selected-item-price">QR ${subtotal}</span>
+                            <button class="remove-item-btn" onclick="removeItem('${itemId}')">Remove</button>
+                        </div>
+                    `;
+                }).join('');
+                
+                updateTotalPrice();
+            }
+            
+            function removeItem(itemId) {
+                delete cart[itemId];
+                updateSelectedItems();
+            }
+            
+            function updateTotalPrice() {
+                let total = 0;
+                Object.keys(cart).forEach(itemId => {
+                    const item = cart[itemId];
+                    total += item.price * item.qty;
+                });
+                document.getElementById('totalPrice').textContent = 'QR ' + total;
+            }
+            
+            function sendToWhatsApp() {
+                const selectedItems = Object.keys(cart).filter(key => cart[key].qty > 0);
+                
+                if (selectedItems.length === 0) {
+                    alert('Please select items first!');
+                    return;
+                }
+                
+                let message = 'Hello! I would like to place an order:\n\n';
+                let total = 0;
+                
+                selectedItems.forEach(itemId => {
+                    const item = cart[itemId];
+                    const subtotal = item.price * item.qty;
+                    total += subtotal;
+                    message += '• ' + item.name + ' (' + item.size + ') x' + item.qty + ' = QR ' + subtotal + '\n';
+                });
+                
+                message += '\nTotal: QR ' + total + '\n\nThank you!';
+                
+                const encodedMessage = encodeURIComponent(message);
+                const phoneNumber = WhatsAppPhoneNumber.replace(/\D/g, '');
+                const whatsappUrl = 'https://wa.me/' + phoneNumber + '?text=' + encodedMessage;
+                
+                window.open(whatsappUrl, '_blank');
+                
+                // Refresh page after 1 second to allow WhatsApp to open
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            }
+            
+            
+        </script>
+        <!-- Selected Items Section -->
+        <div class="selected-items-section" id="selectedItemsSection">
+            <div class="selected-items-header">
+                Your Order 🛒
+            </div>
+            <div class="selected-items-list" id="selectedItemsList"></div>
+            <div class="total-section">
+                <span>Total:</span>
+                <span class="total-price" id="totalPrice">QR 0</span>
+            </div>
+            <button class="order-btn" id="whatsappBtn" onclick="sendToWhatsApp()" disabled>
+                📱 Order via WhatsApp
+            </button>
+        </div>
+        
+        <!-- Size Selection Modal -->
+        <div class="size-modal" id="sizeModal" onclick="closeSizeModalOnBgClick(event)">
+            <div class="size-modal-content" onclick="event.stopPropagation()">
+                <h3 id="sizeModalTitle">Select Size</h3>
+                <div class="size-options" id="sizeOptions"></div>
+            </div>
+        </div>
+        <!--? Our Services Start -->
+        <div class="our-services section-padding30">
+            <div class="container">
+                <div class="row justify-content-sm-center">
+                    <div class="cl-xl-7 col-lg-8 col-md-10">
+                        <!-- Section Tittle -->
+                        <div class="section-tittle text-center mb-70">
+                            <span>Services We Offer</span>
+                            <h2>Our Best Services</h2>
+                        </div> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-services text-center mb-30">
+                            <div class="services-ion">
+                                <span class="flaticon-restaurant"></span>
+                            </div>
+                            <div class="services-cap">
+                                <h5><a href="#">Best Chef</a></h5>
+                                <p>Our kitchen is driven by expert hands and fresh ingredients, creating memorable dishes every day.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-services active text-center mb-30">
+                            <div class="services-ion">
+                                <span class="flaticon-tools-and-utensils-1"></span>
+                            </div>
+                            <div class="services-cap">
+                                <h5><a href="#">Quality Food</a></h5>
+                                <p>We focus on bold flavor, balanced ingredients, and consistent quality in every meal we serve.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-services text-center mb-30">
+                            <div class="services-ion">
+                                <span class="flaticon-restaurant"></span>
+                            </div>
+                            <div class="services-cap">
+                                <h5><a href="#">Perfect Cook</a></h5>
+                                <p>Every plate is prepared with care, bringing comfort, warmth, and satisfaction to every guest.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Our Services End -->
+    </main>
+    <footer aria-label="Restaurant site footer with contact information">
+        <!--? Footer Start-->
+        <div class="footer-area section-bg" data-background="gallery/section_bg02.png">
+            <div class="container">
+                <div class="footer-top footer-padding">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-xl-4 col-lg-4 col-md-5 col-sm-8">
+                            <div class="single-footer-caption mb-50">
+                                <!-- logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="logo/karak_station_logo.png" alt="Karak Station logo"></a>
+                                </div>
+                                <div class="footer-contact" aria-labelledby="footer-contact-label">
+                                    <h4 id="footer-contact-label">Restaurant & Cafeteria</h4>
+                                    <p><strong>Restaurant &amp; Cafeteria / مطعم &amp; كافتيريا</strong></p>
+                                    <p>24 HOURS OPEN / مفتوح 24 ساعة</p>
+                                    <p>FREE DELIVERY / توصيل مجاني</p>
+                                    <p>Umm Al Amad, Qatar / أم العماد, قطر</p>
+                                    <p><a href="tel:+97477821400">+974 77821400</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-5 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Navigation</h4>
+                                    <ul aria-label="Footer Navigation">
+                                        <li><a href="index.html" aria-label="Navigate to Home page">Home</a></li>
+                                        <li><a href="blog.html" aria-label="Navigate to Blog page">Events</a></li>
+                                        <li><a href="index.html#testimonial" aria-label="Navigate to Testimonial section">Testimonial</a></li>
+                                        <li><a href="menu.html" aria-label="Navigate to Menu page">Categories</a></li>
+                                        <li><a href="contact.html" aria-label="Navigate to Contact page">Contacts</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-5 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Useful Links</h4>
+                                    <ul>
+                                        <li><a href="#">Registration</a></li>
+                                        <li><a href="#">Login</a></li>
+                                        <li><a href="#">Policy</a></li>
+                                        <li><a href="#">Terms & Conditions</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Instagram -->
+                        <div class="col-xl-4 col-lg-4 col-md-5 col-sm-7">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Instagram Feed</h4>
+                                </div>
+                                <div class="instagram-gellay">
+                                    <ul class="insta-feed">
+                                        <li><a href="#"><img src="gallery/instagram1.png" alt=""></a></li>
+                                        <li><a href="#"><img src="gallery/instagram2.png" alt=""></a></li>
+                                        <li><a href="#"><img src="gallery/instagram3.png" alt=""></a></li>
+                                        <li><a href="#"><img src="gallery/instagram4.png" alt=""></a></li>
+                                        <li><a href="#"><img src="gallery/instagram5.png" alt=""></a></li>
+                                        <li><a href="#"><img src="gallery/instagram6.png" alt=""></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="row d-flex justify-content-between align-items-center">
+                        <div class="col-xl-9 col-lg-8">
+                            <div class="footer-copy-right">
+                                <p><!-- Link back to Beeone Digital can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | made with <i class="fa fa-heart" aria-hidden="true"></i> by Beeone Digital
+  <!-- Link back to Beeone Digital can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4">
+                            <!-- Footer Social -->
+                            <div class="footer-social f-right">
+                                <span>Follow Us</span>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fas fa-globe"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+    <!-- Scroll Up -->
+    <div id="back-top" >
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+
+    <!-- JS here -->
+
+    <script src="./js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="./js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="./js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="./js/owl.carousel.min.js"></script>
+    <script src="./js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="./js/wow.min.js"></script>
+    <script src="./js/animated.headline.js"></script>
+    <script src="./js/jquery.magnific-popup.js"></script>
+
+    <!-- Date Picker -->
+    <script src="./js/gijgo.min.js"></script>
+    <!-- Nice-select, sticky -->
+    <script src="./js/jquery.nice-select.min.js"></script>
+    <script src="./js/jquery.sticky.js"></script>
+    
+    <!-- contact js -->
+    <script src="./js/contact.js"></script>
+    <script src="./js/jquery.form.js"></script>
+    <script src="./js/jquery.validate.min.js"></script>
+    <script src="./js/mail-script.js"></script>
+    <script src="./js/jquery.ajaxchimp.min.js"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="./js/plugins.js"></script>
+    <script src="./js/main.js"></script>
+    
+    <script>
+        // Initialize WOW.js for scroll animations
+        new WOW().init();
+    </script>
+    <script src="./js/water-animation.js"></script>
+    
+    </body>
+</html>
+
+
+
+
+
